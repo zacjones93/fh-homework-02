@@ -1,0 +1,12 @@
+<div class="booyah-box">
+    <h1><%= @book.title %></h1>
+   <!-- <i><%= @book.author %></i> -->
+    <p><%= @book.genre %></p>
+    <p><%= @book.classification %></p>
+    <p><%= @book.book_type %></p>
+    <p><%= @book.year %></p>
+    <br />
+    <%= link_to 'Edit', edit_book_path(@book)%>
+    <%= link_to 'Destroy', book_path(@book), method: :delete, data: {confirm: 'Are you sure you want to delete this?'} %>
+  
+</div>
