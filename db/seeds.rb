@@ -5,47 +5,33 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'faker'
 
-classifications = 
-["General Works - encyclopedias",
-"Philosophy", "Psychology", "Religion",
-"History - Auxiliary Sciences", "History (except American)",
-"General U.S. History", "Local U.S. History",
-"Geography", "Anthropology", "Recreation",
-"Social Sciences	U", "Political Science	V",
-"Law	Z - Bibliography and Library Science",
-"Education",
-"Music",
-"Fine Arts",
-"Language and Literature",
-"Science",
-"Medicine",
-"Agriculture",
-"Technology",
-"Military",
-"Naval Science",
-"Bibliography",
-"Library Science"]
+# reset database
 
-book_types = ["Fiction", "Non-fiction"]
-
+Book.destroy_all
+Author.destroy_all
 50.times do
-  
-  title = Faker::Book.title
-  author = Faker::Book.author
-  genre = Faker::Book.genre
-  classification = classifications.sample
-  book_type = book_types.sample
-  year = Faker::Number.between(2000, 2017)
-  
-  b = Book.create({
-      title: title, 
-      author: author, 
-      genre: genre, 
-      classification: classification, 
-      book_type: book_type, 
-      year: year})
-  b.save!
+  Book.create(
+    title: Faker::Book.title,
+    sub_title: Faker::Movie.quote,
+    genre: Faker::Book.genre, 
+    classification: Book.classifications.sample, 
+    book_type: Book.book_types.sample, 
+    year: Faker::Number.between(2000, 2017)
+  )
 end
 
+25.times do 
+  Author.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    age: Faker::Number.between(17, 70)
+  )
+end
+
+books = Book.all
+author_ids = Author.pluck(:id)
+
+books.each do | book |
+  Authorship.create!(book_id: book.id, author_id: author_ids.sample)
+end

@@ -9,6 +9,22 @@
   </head>
 
   <body>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+      
+      <div  id="navbarTogglerDemo01">
+        <%= link_to 'fh-02', root_path, class: 'navbar-brand'%>
+        <ul class="navbar-nav mr-auto mt-2">
+          <li class="nav-item">
+            <%= link_to new_book_path, class: 'nav-link' do %>
+              <i class="fa fa-plus-circle"></i>
+              New Book
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     <%= yield %>
   </body>
 </html>
